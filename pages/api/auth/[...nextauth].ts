@@ -32,13 +32,10 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async redirect({ url, baseUrl }) {
+    async redirect() {
       // GitHub Pagesのドメインを許可
       const githubPagesUrl = "https://sakiyamamamama.github.io";
-      if (url.startsWith(githubPagesUrl)) {
-        return url;
-      }
-      return baseUrl;
+      return githubPagesUrl;
     },
   },
   cookies: {
@@ -49,7 +46,7 @@ export const authOptions: NextAuthOptions = {
         sameSite: "None",
         secure: true,
         path: "/",
-        domain: "horizon-atlas.vercel.app" // サブドメインなし
+        domain: "horizon-atlas.vercel.app" 
       },
     },
   }
