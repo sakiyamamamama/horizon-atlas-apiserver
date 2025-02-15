@@ -3,7 +3,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 
 export default function Home() {
-  const {data:session} = useSession()
+  const {data:session, status} = useSession();
+  console.log(status);
   return (
     <div className="mt-5 mr-5"
     >
