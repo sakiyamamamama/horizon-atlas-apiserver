@@ -49,21 +49,10 @@ export const authOptions: NextAuthOptions = {
         sameSite: "None",
         secure: true,
         path: "/",
-        domain: ".vercel.app" // サブドメインを含むように修正
+        domain: "horizon-atlas.vercel.app" // サブドメインなし
       },
     },
-    callbackUrl: {
-      name: "next-auth.callback-url",
-      options: {
-        sameSite: "None",
-        secure: true,
-        path: "https://sakiyamamamama.github.io/horizon-atlas",
-        domain: ".vercel.app"
-      }
-    },
-  },
-  // 追加: 信頼できるホストを設定
-//   trustHost: true
+  }
 };
 
 export default NextAuth(authOptions);
