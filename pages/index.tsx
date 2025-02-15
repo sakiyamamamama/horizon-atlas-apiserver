@@ -1,10 +1,8 @@
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 
 export default function Home() {
-  const {data:session, status} = useSession();
-  console.log(status);
   return (
     <div className="mt-5 mr-5"
     >
@@ -18,14 +16,12 @@ export default function Home() {
           priority
         />
 
-        <div>
-          {!session && <button onClick={()=>signIn()}>
+        <div><button onClick={()=>signIn()}>
             ログイン
-          </button>}
-          {session && <button onClick={()=>signOut()}
-          >
+          </button>
+          <button onClick={()=>signOut()}>
             ログアウト
-          </button>}
+          </button>
         </div>
       </main>
     </div>
