@@ -28,9 +28,19 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async redirect({  }) {
+    async redirect() {
         return "https://sakiyamamamama.github.io/horizon-atlas"; // GitHub Pages にリダイレクト
       },
+  },
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "None", // クロスサイトのリクエストを許可
+        secure: true, // HTTPS 必須
+      },
+    },
   },
 };
 
