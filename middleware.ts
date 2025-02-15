@@ -6,9 +6,9 @@ export function middleware(req: NextRequest) {
     const corsHeaders = {
       "Access-Control-Allow-Origin": allowedOrigin,
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization, Cookie",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version",
       "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Expose-Headers": "Set-Cookie",
+      "Access-Control-Expose-Headers": "*, Authorization",
     };
   
     if (req.method === "OPTIONS") {
@@ -18,11 +18,18 @@ export function middleware(req: NextRequest) {
       });
     }
   
-    const res = NextResponse.next();
+    const response = NextResponse.next();
     
     Object.entries(corsHeaders).forEach(([key, value]) => {
-      res.headers.set(key, value);
+      response.headers.set(key, value);
     });
   
-    return res;
-  }
+    return response;
+}
+
+export const config = {
+  matcher: [
+    '/api/:path*',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
+}

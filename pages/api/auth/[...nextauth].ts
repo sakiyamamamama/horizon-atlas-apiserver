@@ -32,21 +32,38 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    async redirect() {
-        return "https://sakiyamamamama.github.io/horizon-atlas"; // GitHub Pages にリダイレクト
-      },
+    async redirect({ url, baseUrl }) {
+      // GitHub Pagesのドメインを許可
+      const githubPagesUrl = "https://sakiyamamamama.github.io";
+      if (url.startsWith(githubPagesUrl)) {
+        return url;
+      }
+      return baseUrl;
+    },
   },
   cookies: {
     sessionToken: {
       name: "next-auth.session-token",
       options: {
         httpOnly: true,
-        sameSite: "None", 
-        secure: true, 
-        domain: "horizon-atlas.vercel.app"
+        sameSite: "None",
+        secure: true,
+        path: "/",
+        domain: ".vercel.app" // サブドメインを含むように修正
       },
     },
+    callbackUrl: {
+      name: "next-auth.callback-url",
+      options: {
+        sameSite: "None",
+        secure: true,
+        path: "/",
+        domain: ".vercel.app"
+      }
+    },
   },
+  // 追加: 信頼できるホストを設定
+//   trustHost: true
 };
 
 export default NextAuth(authOptions);
