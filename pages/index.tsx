@@ -4,7 +4,7 @@ import { signIn, signOut } from "next-auth/react";
 
 export default function Home() {
   return (
-    <div
+    <div className="mt-5 mr-5"
     >
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
@@ -26,15 +26,8 @@ export default function Home() {
           <li>Save and see your changes instantly.</li>
         </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+        <div>
           <button onClick={()=>signIn()}>
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
             ログイン
           </button>
           <button onClick={()=>signOut()}
