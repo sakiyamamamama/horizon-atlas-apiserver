@@ -1,21 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req: NextRequest) {
-  const res = NextResponse.next();
+  const allowedOrigin = "https://sakiyamamamama.github.io"; // フロントエンドのURLを指定
 
-  res.headers.set("Access-Control-Allow-Origin", "*");
-  res.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Credentials": "true", // Cookie を許可
+  };
 
-  // CORS プリフライトリクエストに対応
+  // OPTIONS プリフライトリクエストに対応
   if (req.method === "OPTIONS") {
-    return new Response(null, { status: 200, headers: res.headers });
+    return new NextResponse(null, { status: 200, headers: corsHeaders });
   }
+
+  const res = NextResponse.next();
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    res.headers.set(key, value);
+  });
 
   return res;
 }
 
-// CORS を適用するパスを指定
+// CORS を適用する API のパス
 export const config = {
   matcher: "/api/:path*",
 };
