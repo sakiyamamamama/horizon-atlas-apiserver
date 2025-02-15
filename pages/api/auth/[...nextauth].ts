@@ -11,6 +11,10 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30日
+  },
   callbacks: {
     async session({ session, token }) {
       session.token = {
@@ -37,8 +41,9 @@ export const authOptions: NextAuthOptions = {
       name: "next-auth.session-token",
       options: {
         httpOnly: true,
-        sameSite: "None", // クロスサイトのリクエストを許可
-        secure: true, // HTTPS 必須
+        sameSite: "None", 
+        secure: true, 
+        domain: "horizon-atlas.vercel.app"
       },
     },
   },
