@@ -57,7 +57,7 @@ export const authOptions: NextAuthOptions = {
       options: {
         sameSite: "None",
         secure: true,
-        path: "/",
+        path: "https://sakiyamamamama.github.io/horizon-atlas",
         domain: ".vercel.app"
       }
     },
